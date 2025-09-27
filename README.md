@@ -189,33 +189,27 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
-  {
-	  IRPAIR();
-	  /* You can add application code here */
+    {
+  	  IRPAIR();
+    }
+    /* USER CODE END 3 */
   }
-  /* USER CODE END WHILE */
-}
+  void IRPAIR()
+  {
+  IRSENSOR = HAL_GPIO_ReadPin(GPIOB,GPIO_PIN_4);
+  if(IRSENSOR==0)
+  {
+  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_5, GPIO_PIN_SET);
 
-/* Callback function for EXTI interrupts */
-void IRPAIR()
-{
-IRSENSOR = HAL_GPIO_ReadPin(GPIOB,GPIO_PIN_4);
-if(IRSENSOR==0)
-{
-HAL_GPIO_WritePin(GPIOB, GPIO_PIN_5, GPIO_PIN_SET);
-printf("Obstacle Detected\n");
-HAL_Delay(1000);
-HAL_GPIO_WritePin(GPIOB, GPIO_PIN_5, GPIO_PIN_RESET);
-printf("Obstacle not Detected\n");
-HAL_Delay(1000);
-}
-//else
-//{
-//HAL_GPIO_WritePin(GPIOB, GPIO_PIN_5, GPIO_PIN_RESET);
-//printf("Obstacle not Detected\n");
-//HAL_Delay(1000); 
-//} 
-}
+  printf("OBSTACLE DETECTED\n");
+  }
+  else
+  {
+  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_5, GPIO_PIN_RESET);
+
+  printf("OBSTACLE IS NOT DETECTED\n");
+  }
+  }
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
   if (GPIO_Pin == GPIO_PIN_4)   // Ensure correct pin
@@ -334,17 +328,19 @@ void assert_failed(uint8_t *file, uint32_t line)
 }
 #endif /* USE_FULL_ASSERT */
 
+
 ```
 
 
 ## Output screen shots of serial port utility   :
  
- <img width="1047" height="965" alt="Screenshot 2025-09-20 092148" src="https://github.com/user-attachments/assets/44afdcbd-1337-48b6-9836-58d18a6ae20b" />
+<img width="1920" height="1200" alt="image" src="https://github.com/user-attachments/assets/04c871bf-4d18-44f4-89e1-f2f3cb61aa38" />
+
 
  ## Circuit board :
  
- 
- ![WhatsApp Image 2025-09-25 at 15 10 16_8f9ea029](https://github.com/user-attachments/assets/f09a08a2-2491-4ebc-856f-11f5f9e5c2cc)
+![WhatsApp Image 2025-09-27 at 09 40 53_4b047ba3](https://github.com/user-attachments/assets/1bfc1473-1c95-4269-b44c-9dbe6d9db84a)
 
+ 
 ## Result :
 Interfacing a  IR SENSOR and interrupt is generated using external interrupt mode , visualized on serial port 
